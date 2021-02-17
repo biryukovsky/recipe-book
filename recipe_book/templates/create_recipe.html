@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Создание рецепта</h1>
+<form method="POST">
+    <div class="mb-3">
+        <label class="form-label">Название</label>
+        <input class="form-control" type="text" name="title">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Время приготовления</label>
+        <input class="form-control" type="text" name="cooking_time">
+    </div>
+
+    <label class="form-label">Ингредиенты</label>
+    <div class="ingredients-list mb-2">
+        <div class="row mb-2 g-2 js-ingredient-form-group">
+            <div class="col-8">
+                <input
+                    type="text"
+                    class="col-8 form-control"
+                    name="ingredient[]"
+                    placeholder="Название"
+                    aria-label="ingredient"
+                >
+            </div>
+            <div class="col-4">
+                <input
+                    type="text"
+                    class="col-4 form-control"
+                    name="amount[]"
+                    placeholder="Количество"
+                    aria-label="amount"
+                >
+            </div>
+        </div>
+    </div>
+
+    <div class="col-2 mb-3">
+        <button
+            type="button"
+            class="btn btn-secondary btn-sm js-btn-add-ingredient"
+        >Добавить еще</button>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Способ приготовления</label>
+        <textarea class="form-control" name="instruction"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <button class="btn btn-primary">Сохранить</button>
+    </div>
+</form>
+
+<script>
+    const clearChildren = (elem) => {
+        elem.childNodes.forEach(elem => {
+            if (elem.tagName) {
+                switch (elem.tagName.toLowerCase()) {
+                    case 'input':
+                        switch (elem.type) {
+                            case 'text':
+                                elem.value = '';
+                                break;
+                        }
+                        break;
+                    default: clearChildren(elem);
+                }
+            }
+        });
+    };
+
+    const buttonAddIngredient = document.querySelector('.js-btn-add-ingredient');
+    const ingredientsListElem = document.querySelector('.ingredients-list');
+    const ingredientGroupElem = document.querySelector('.js-ingredient-form-group');
+    buttonAddIngredient.addEventListener('click', function(event) {
+        const ingredientGroupCopy = ingredientGroupElem.cloneNode(true);
+        clearChildren(ingredientGroupCopy);
+        ingredientsListElem.appendChild(ingredientGroupCopy);
+    });
+</script>
+{% endblock content %}
