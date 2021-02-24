@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
+{% block page_title %} Рецепты {% endblock page_title %}
+
 {% block content %}
+
+{% if current_user.is_authenticated %}
+    <a href="{{ url_for('create_recipe') }}" class="btn btn-primary">Создать рецепт</a>
+{% endif %}
+
 <ul>
     {% for recipe in recipes -%}
     <li><a href="/recipes/{{ recipe.slug }}">{{ recipe.title }}</a></li>
@@ -8,4 +15,5 @@
     <li>no recipes</li>
     {%- endfor %}
 </ul>
+
 {% endblock content %}

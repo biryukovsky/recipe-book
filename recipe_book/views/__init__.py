@@ -54,7 +54,9 @@ class SignupView(MethodView):
         current_app.db_session.add(new_user)
         current_app.db_session.commit()
 
-        return redirect(url_for('index'))
+        login_user(new_user)
+
+        return redirect(url_for('recipes'))
 
 
 class LogoutView(MethodView):

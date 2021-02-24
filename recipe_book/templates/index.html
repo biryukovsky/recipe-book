@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Home page</h1>
+    <div class="jumbotron">
+        <h1 class="display-4">Книга рецептов</h1>
+        <h5>
+            Для создания собственных рецептов необходимо
+            <a href="{{ url_for('login') }}">войти</a>
+            или
+            <a href="{{ url_for('signup') }}">зарегистрироваться</a>
+        </h5>
+        <div class="row">
+            <div class="col-2"><a href="{{ url_for('recipes') }}" class="btn btn-primary">Смотреть рецепты</a></div>
+        </div>
+
+    </div>
 {% endblock %}
