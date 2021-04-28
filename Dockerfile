@@ -1,7 +1,11 @@
 FROM python:3.9-slim-buster
 
 RUN mkdir /app
+RUN groupadd -r recipe_book && useradd -r -s /bin/false -g recipe_book recipe_book
 WORKDIR /app
+RUN chown -R recipe_book:recipe_book /app
+
+USER recipe_book
 
 COPY requirements.txt .
 
