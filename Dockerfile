@@ -1,11 +1,15 @@
 FROM python:3.9-slim-buster
 
-RUN mkdir /app
-RUN groupadd -r recipe_book && useradd -r -s /bin/false -g recipe_book recipe_book
-WORKDIR /app
-RUN chown -R recipe_book:recipe_book /app
+ENV PYTHONPATH /app
+ENV PYTHONBUFFERED 1
 
-USER recipe_book
+RUN mkdir /app
+RUN useradd --create-home app
+ENV PATH "/home/app/.local/bin:${PATH}"
+WORKDIR /app
+RUN chown -R app:app /app
+
+USER app
 
 COPY requirements.txt .
 
